@@ -7,6 +7,10 @@
 #ifndef _KERNEL_H_
 #define _KERNEL_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stdint.h"
 #include "stdbool.h"
 #include "stdio.h"
@@ -17,16 +21,8 @@ void gdt_init(void);
 void intr_init(void);
 void clock_init(void);
 void keyboard_init(void);
-void mouse_init(void);
 void debug_init(void);
 void showinfo(void);
-
-extern ptr_t kernel_init_start[];
-extern ptr_t kernel_init_text_start[];
-extern ptr_t kernel_init_text_end[];
-extern ptr_t kernel_init_data_start[];
-extern ptr_t kernel_init_data_end[];
-extern ptr_t kernel_init_end[];
 
 extern ptr_t kernel_start[];
 extern ptr_t kernel_text_start[];
@@ -49,5 +45,9 @@ void showinfo(void) {
                 (kernel_end - kernel_start) / 1024,
                 (kernel_end - kernel_start) / 1024 / 4);
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _KERNEL_H_ */

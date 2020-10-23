@@ -12,7 +12,6 @@ extern "C" {
 #include "stdio.h"
 #include "stddef.h"
 #include "port.hpp"
-#include "cpu.hpp"
 #include "clock.h"
 
 void clock_init(void) {
@@ -25,6 +24,7 @@ void clock_init(void) {
     // 分别写入低字节和高字节
     outb(IO_TIMER, low);
     outb(IO_TIMER, hign);
+
     printk_info("clock_init\n");
     return;
 }
