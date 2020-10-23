@@ -7,11 +7,14 @@
 #ifndef _KERNEL_H_
 #define _KERNEL_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stdint.h"
 #include "stdbool.h"
 #include "stdio.h"
 #include "multiboot2.h"
-#include "mem/pmm.h"
 
 void kernel_main(void);
 void console_init(void);
@@ -20,6 +23,13 @@ void idt_init(void);
 void clock_init(void);
 void debug_init(void);
 void showinfo(void);
+
+extern ptr_t kernel_start[];
+extern ptr_t kernel_text_start[];
+extern ptr_t kernel_text_end[];
+extern ptr_t kernel_data_start[];
+extern ptr_t kernel_data_end[];
+extern ptr_t kernel_end[];
 
 void showinfo(void) {
     // 输出一些基本信息
@@ -32,5 +42,9 @@ void showinfo(void) {
                 (kernel_end - kernel_start) / 1024,
                 (kernel_end - kernel_start) / 1024 / 4);
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _KERNEL_H_ */

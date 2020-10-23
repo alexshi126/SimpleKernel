@@ -11,7 +11,7 @@ extern "C" {
 #include "stdio.h"
 #include "stdarg.h"
 #include "stdint.h"
-#include "debug.h"
+#include "string.h"
 
 static char buf[1024];
 
@@ -27,6 +27,7 @@ int32_t printk(const char *fmt, ...) {
     i = vsprintf(buf, fmt, args);
     va_end(args);
     console_writestring(buf);
+    bzero(buf, 1024);
     return i;
 }
 
@@ -40,6 +41,7 @@ int32_t printk_color(uint8_t color, const char *fmt, ...) {
     console_setcolor(color);
     console_writestring(buf);
     console_setcolor(old_color);
+    bzero(buf, 1024);
     return i;
 }
 
@@ -54,6 +56,7 @@ int32_t printk_info(const char *fmt, ...) {
     i = vsprintf(buf, fmt, args);
     va_end(args);
     console_writestring(buf);
+    bzero(buf, 1024);
     return i;
 }
 
@@ -65,6 +68,7 @@ int32_t printk_debug(const char *fmt, ...) {
     i = vsprintf(buf, fmt, args);
     va_end(args);
     console_writestring(buf);
+    bzero(buf, 1024);
     return i;
 }
 
@@ -76,6 +80,7 @@ int32_t printk_test(const char *fmt, ...) {
     i = vsprintf(buf, fmt, args);
     va_end(args);
     console_writestring(buf);
+    bzero(buf, 1024);
     return i;
 }
 
@@ -87,6 +92,8 @@ int printk_err(const char *fmt, ...) {
     i = vsprintf(buf, fmt, args);
     va_end(args);
     console_writestring(buf);
+    bzero(buf, 1024);
+    asm("hlt");
     return i;
 }
 
